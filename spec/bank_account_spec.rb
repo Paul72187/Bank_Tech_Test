@@ -15,3 +15,9 @@ describe 'deposit' do
     expect { subject.deposit(20.00) }.not_to raise_exception
   end
 end
+
+describe 'withdrawal' do
+  it 'allows deposits in pounds and pence to two decimal places' do
+    allow(transaction).to receive(:create).and_return({ type: :withdrawal, date: '14/01/2013', amount: 10.00 })
+  end
+end
