@@ -34,7 +34,7 @@ describe BankAccount do
       end
 
       it 'displays error when amount is displayed as a floating value but not to two decimal places' do
-          expect { subject.deposit(20.001) }.to raise_exception(RuntimeError, not_float_error)
+        expect { subject.deposit(20.001) }.to raise_exception(RuntimeError, not_float_error)
       end
 
       it 'displays error when amount not displayed as positive value to two decimal places' do
@@ -58,6 +58,20 @@ describe BankAccount do
       it 'returns approval alert when withdrawal is approved' do
         allow(transaction).to receive(:create).and_return({ type: :withdrawal, date: '14/01/2023', amount: 4.50 })
         expect(subject.withdrawal(4.50)).to eq 'Your withdrawal has been approved'
+      end
+    end
+
+    context 'rejected' do
+      it 'displays error when amount not displayed as a floating value' do
+        expect { subject.withdrawal('Bank Deposit') }.to raise_exception(RuntimeError, not_float_error)
+      end
+      
+      it 'displays error when amount is displayed as a floating value but not to two decimal places' do
+        expect { subject.withdrawal(20.001) }.to raise_exception(RuntimeError, not_float_error)
+      end
+      
+      it 'displays error when amount not displayed as positive value to two decimal places' do
+        expect { subject.withdrawal(-20.00) }.to raise_exception(RuntimeError, negative_error)
       end
     end
   end
