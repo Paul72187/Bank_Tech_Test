@@ -2,6 +2,7 @@
 
 require_relative 'transaction'
 
+# Creates a bank account that allows deposits and withdrawals
 class BankAccount
   def initialize
     @transactions = []
@@ -9,5 +10,9 @@ class BankAccount
 
   def deposit(amount)
     @transactions << Transaction.new.create(:deposit, amount)
+  end
+
+  def withdrawal(amount)
+    @transactions << Transaction.new.create(:withdrawal, amount)
   end
 end
