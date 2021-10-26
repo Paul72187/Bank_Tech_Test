@@ -65,11 +65,11 @@ describe BankAccount do
       it 'displays error when amount not displayed as a floating value' do
         expect { subject.withdrawal('Bank Deposit') }.to raise_exception(RuntimeError, not_float_error)
       end
-      
+
       it 'displays error when amount is displayed as a floating value but not to two decimal places' do
         expect { subject.withdrawal(20.001) }.to raise_exception(RuntimeError, not_float_error)
       end
-      
+
       it 'displays error when amount not displayed as positive value to two decimal places' do
         expect { subject.withdrawal(-20.00) }.to raise_exception(RuntimeError, negative_error)
       end

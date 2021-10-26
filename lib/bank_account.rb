@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'transaction'
+require_relative 'statement'
 
 # Creates a bank account that allows deposits and withdrawals
 class BankAccount
