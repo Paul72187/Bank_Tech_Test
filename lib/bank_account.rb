@@ -27,6 +27,6 @@ class BankAccount
   def check_validity(amount)
     raise 'Amount should be stated in pounds and pence to two decimal places' unless amount.is_a? Float
     raise 'Amount should be stated in pounds and pence to two decimal places' if amount.round(2) != amount
-    raise 'Amount deposited must be higher than 0' if amount <= 0
+    raise 'Amount deposited must exceed 0.00' if amount <= 0
   end
 end

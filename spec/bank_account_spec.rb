@@ -4,6 +4,7 @@ require 'bank_account'
 
 describe BankAccount do
   let(:not_float_error) { 'Amount should be stated in pounds and pence to two decimal places' }
+  let(:negative_error) { 'Amount deposited must exceed 0.00' }
   let(:transaction) { instance_double('Transaction') }
 
   before(:each) do
@@ -24,6 +25,20 @@ describe BankAccount do
       it 'returns approval alert when deposit is approved' do
         allow(transaction).to receive(:create).and_return({ type: :depsit, date: '13/01/2023', amount: 20.00 })
         expect(subject.deposit(20.00)).to eq 'Your deposit has been approved'
+      end
+    end
+
+    context 'rejected' do
+      it 'displays error when amount not displayed as a floating value' do
+        expect { subject.deposit('Bank Deposit') }.to raise_exception(RuntimeError, not_float_error)
+      end
+
+      it 'displays error when amount is displayed as a floating value but not to two decimal places' do
+          expect { subject.deposit(20.001) }.to raise_exception(RuntimeError, not_float_error)
+      end
+
+      it 'displays error when amount not displayed as positive value to two decimal places' do
+        expect { subject.deposit(-20.00) }.to raise_exception(RuntimeError, negative_error)
       end
     end
   end
