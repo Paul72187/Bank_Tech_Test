@@ -19,6 +19,9 @@ Dependencies installed via bundle install
 # TESTING
 Rspec used to test unit and feature tests in all files
 
+# TEST COVERAGE
+SimpleCov runs via index.html and provides 100% coverage
+
 # INTERACTIVE PROGRAM
 This program can be run interactively using irb
 Commands in terminal:
