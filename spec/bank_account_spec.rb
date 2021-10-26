@@ -17,8 +17,13 @@ describe BankAccount do
   describe '.deposit' do
     context 'approved' do
       it 'allows deposits to be made in pounds and pence to two decimal places' do
-        allow(transaction).to receive(:create).and_return({ type: :deposit, date: '10/01/2013', amount: 20.00 })
+        allow(transaction).to receive(:create).and_return({ type: :deposit, date: '10/01/2023', amount: 20.00 })
         expect { subject.deposit(20.00) }.not_to raise_exception
+      end
+
+      it 'returns approval alert when deposit is approved' do
+        allow(transaction).to receive(:create).and_return({ type: :depsit, date: '13/01/2023', amount: 20.00 })
+        expect(subject.deposit(20.00)).to eq 'Your deposit has been approved'
       end
     end
   end
@@ -31,8 +36,13 @@ describe BankAccount do
 
     context 'approved' do
       it 'allows withdrawals to be made in pounds and pence to two decimal places' do
-        allow(transaction).to receive(:create).and_return({ type: :withdrawal, date: '01/01/2021', amount: 4.50 })
+        allow(transaction).to receive(:create).and_return({ type: :withdrawal, date: '14/01/2023', amount: 4.50 })
         expect { subject.withdrawal(4.50) }.not_to raise_exception
+      end
+
+      it 'returns approval alert when withdrawal is approved' do
+        allow(transaction).to receive(:create).and_return({ type: :withdrawal, date: '14/01/2023', amount: 4.50 })
+        expect(subject.withdrawal(4.50)).to eq 'Your withdrawal has been approved'
       end
     end
   end
