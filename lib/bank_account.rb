@@ -18,6 +18,7 @@ class BankAccount
   def withdrawal(amount)
     check_validity(amount)
     return 'You have insufficient funds for this withdrawal' if amount > calc_balance
+
     @transactions << Transaction.new.create(:withdrawal, amount)
     'Your withdrawal has been approved'
   end
