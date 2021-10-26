@@ -5,6 +5,7 @@ require 'bank_account'
 describe BankAccount do
   let(:not_float_error) { 'Amount should be stated in pounds and pence to two decimal places' }
   let(:negative_error) { 'Amount deposited must exceed 0.00' }
+  let(:insufficient_funds_error) { 'You have insufficient funds for this withdrawal' }
   let(:transaction) { instance_double('Transaction') }
 
   before(:each) do
@@ -14,6 +15,7 @@ describe BankAccount do
 
   it { is_expected.to respond_to(:deposit).with(1).arguments }
   it { is_expected.to respond_to(:withdrawal).with(1).arguments }
+  it { is_expected.to respond_to(:print_statement).with(0).arguments }
 
   describe '.deposit' do
     context 'approved' do
@@ -72,6 +74,10 @@ describe BankAccount do
 
       it 'displays error when amount not displayed as positive value to two decimal places' do
         expect { subject.withdrawal(-20.00) }.to raise_exception(RuntimeError, negative_error)
+      end
+
+      it 'displays error when trying to withdraw a greater amount than the current bank balance' do
+        expect(subject.withdrawal(5000.00)).to eq(insufficient_funds_error)
       end
     end
   end

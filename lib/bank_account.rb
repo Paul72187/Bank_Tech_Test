@@ -17,13 +17,27 @@ class BankAccount
 
   def withdrawal(amount)
     check_validity(amount)
+    return 'You have insufficient funds for this withdrawal' if amount > calc_balance
     @transactions << Transaction.new.create(:withdrawal, amount)
     'Your withdrawal has been approved'
+  end
+
+  def print_statement
+    statement = Statement.new(@transactions)
+    statement.print_statement
   end
 
   private
 
   attr_reader :transactions
+
+  def calc_balance
+    balance = 0
+    @transactions.each do |transaction|
+      transaction[:type] == :deposit ? balance += transaction[:amount] : balance -= transaction[:amount]
+    end
+    balance
+  end
 
   def check_validity(amount)
     raise 'Amount should be stated in pounds and pence to two decimal places' unless amount.is_a? Float
