@@ -30,7 +30,7 @@ Step 2: require './lib/bank_account.rb'\
 Step 3: my_account = BankAccount.new
 
 # PROGRAM FUNCTIONALITY
-This Ruby program enables the user to:\
+This Ruby program enables the user to:
 1. Deposit sums of money (with amounts specified to two decimal places)
 2. Withdraw sums of money (with amounts specified to two decimal places)
 3. Print a statement with the current account balance (including amounts and dates of transactions)
